@@ -120,13 +120,4 @@ const requestListener = function (req, res){
 }
 
 const server = http.createServer(requestListener)
-server.listen(3005)
-
-// console.log("test123")
-
-// const obj = {
-//   "title":"task1",
-//   "id": uuidv4()
-// }
-
-// console.log(obj); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+server.listen(process.env.PORT || 3005)
