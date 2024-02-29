@@ -1,4 +1,4 @@
-function errorHandle(res){
+function errorHandle(res, message="欄位填寫錯誤"){
   const headers = {
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With',
     'Access-Control-Allow-Origin': '*',
@@ -8,7 +8,7 @@ function errorHandle(res){
   res.writeHead(400,headers);
   res.write(JSON.stringify({
     "status": "false",
-    "message": "欄位填寫錯誤"
+    "message": message
   }));
   res.end();
 }

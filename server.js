@@ -66,7 +66,7 @@ const requestListener = function (req, res){
     const id = req.url.split('/').pop()
     const index = todos.findIndex(item=>item.id===id)
     if(index==-1){
-      errorHandle(res)
+      errorHandle(res, "查無此待辦id")
     } else {
       todos.splice(index,1)
       res.writeHead(200,headers);
@@ -86,7 +86,12 @@ const requestListener = function (req, res){
         const id = req.url.split('/').pop()
         const index = todos.findIndex(item=>item.id===id)
         const title = JSON.parse(body).title
-        if(index!==-1 && title!==undefined){
+        if(index==-1){
+          errorHandle(res, "查無此待辦id")
+        } else if (title==undefined){
+          errorHandle(res)
+        }
+        else {
           todos[index].title = title
           res.writeHead(200,headers);
           res.write(JSON.stringify({
@@ -94,8 +99,6 @@ const requestListener = function (req, res){
             "data":todos,
           }));
           res.end();
-        } else {
-          errorHandle(res)
         }
       } catch {
         errorHandle(res)
@@ -109,12 +112,7 @@ const requestListener = function (req, res){
   }
   // ERROR
   else {
-    res.writeHead(404,headers);
-    res.write(JSON.stringify({
-      "status": "false",
-      "message":"無此網站路由"
-    }));
-    res.end();
+    errorHandle(res,"無此網站路由")
   }
 
 }
