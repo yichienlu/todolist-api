@@ -86,7 +86,7 @@ const requestListener = function (req, res){
         const id = req.url.split('/').pop()
         const index = todos.findIndex(item=>item.id===id)
         const title = JSON.parse(body).title
-        if(index!==-1 && title==!undefined){
+        if(index!==-1 && title!==undefined){
           todos[index].title = title
           res.writeHead(200,headers);
           res.write(JSON.stringify({
